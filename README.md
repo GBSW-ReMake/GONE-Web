@@ -8,6 +8,10 @@
 - TypeScript
 - Vite
 - pnpm
+- Axios
+- Zustand
+- React Router
+- Prettier / ESLint
 
 ## 시작하기
 
@@ -40,6 +44,18 @@ pnpm build
 pnpm lint
 ```
 
+### 포맷 검사
+
+```bash
+pnpm format:check
+```
+
+### 프로덕션 빌드
+
+```bash
+pnpm build
+```
+
 ## 환경변수
 
 `.env.example`을 복사해서 `.env.local`을 만들고 환경에 맞는 값을 입력합니다.
@@ -64,6 +80,8 @@ fix/{이슈번호}-{기능명}   버그 수정
 ## 문서
 
 프론트엔드 개발 문서는 [`docs/`](./docs/)에서 관리합니다.
+
+기능 작업은 [`docs/fe/`](./docs/fe/)의 계획서·이슈 보고서·최종 보고서 흐름을 따릅니다.
 
 ## 관련 레포지토리
 
