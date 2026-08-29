@@ -1,7 +1,7 @@
 ---
 name: 기능 추가
 about: 새로운 웹 기능을 제안합니다
-title: "[feat] "
+title: '[feat] '
 labels: feature
 ---
 
@@ -42,4 +42,3 @@ labels: feature
 ## Figma 링크
 
 ## 관련 이슈
-

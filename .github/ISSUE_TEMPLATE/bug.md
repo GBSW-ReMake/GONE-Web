@@ -1,7 +1,7 @@
 ---
 name: 버그 리포트
 about: 화면이나 기능에서 발생한 문제를 보고합니다
-title: "[fix] "
+title: '[fix] '
 labels: bug
 ---
 
@@ -40,4 +40,3 @@ labels: bug
 ```
 
 ## 관련 이슈
-
