@@ -1,75 +1,72 @@
-# React + TypeScript + Vite
+# GONE Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+경북소프트웨어고등학교 교내 관리 서비스 GONE의 웹 프론트엔드입니다.
 
-Currently, two official plugins are available:
+## 기술 스택
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- TypeScript
+- Vite
+- pnpm
 
-## React Compiler
+## 시작하기
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 요구 사항
 
-## Expanding the ESLint configuration
+- Node.js 22 이상
+- pnpm 10 이상
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 설치
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 개발 서버 실행
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm dev
 ```
+
+### 빌드
+
+```bash
+pnpm build
+```
+
+### 린트
+
+```bash
+pnpm lint
+```
+
+## 환경변수
+
+`.env.example`을 복사해서 `.env.local`을 만들고 환경에 맞는 값을 입력합니다.
+
+```bash
+cp .env.example .env.local
+```
+
+실제 환경변수 파일은 보안상 Git에 올리지 않습니다.
+
+## 브랜치
+
+```text
+main                    배포 기준
+dev                     개발 통합
+feat/{이슈번호}-{기능명}  기능 개발
+fix/{이슈번호}-{기능명}   버그 수정
+```
+
+기능 개발은 `dev`에서 기능 브랜치를 만든 뒤 PR로 병합합니다.
+
+## 문서
+
+프론트엔드 개발 문서는 [`docs/`](./docs/)에서 관리합니다.
+
+## 관련 레포지토리
+
+- [GONE Server](https://github.com/GBSW-ReMake/GONE-server-V1)
+- [GONE iOS](https://github.com/GBSW-ReMake/GONE-iOS)
+- [GONE Android](https://github.com/GBSW-ReMake/GONE-Android)
