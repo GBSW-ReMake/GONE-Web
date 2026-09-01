@@ -23,19 +23,19 @@ API의 최종 계약은 GONE Server의 실제 코드·Swagger·Notion API 명세
 
 2026-09-01에 ReMake의 API 명세서 페이지 `9c098d114f94423aa0e16ae3aeddac91`의 `Default view`를 실제로 확인했다. 아래는 현재 화면에서 확인된 API 목록이다. 세부 Request·Response는 해당 Notion 원문과 GONE Server `dev` 계약을 함께 기준으로 삼는다.
 
-| API 코드 | Method | Endpoint | 확인된 핵심 내용 |
-| --- | --- | --- | --- |
-| `CONDUCT_008` | GET | `/api/v1/conduct-records` | 학생·상벌점 유형·기간 필터, 페이지네이션, 상벌점 목록 |
-| `CONDUCT_007` | GET | `/api/v1/conduct-records/summary` | 학생별 상벌점 합계와 기준 초과 여부 |
-| `CONDUCT_006` | GET | `/api/v1/conduct-records/me` | 현재 사용자 상벌점 목록, 필터, 페이지네이션 |
-| `CONDUCT_005` | GET | `/api/v1/conduct-records/me/summary` | 현재 사용자 상벌점 합계와 기준 초과 여부 |
-| `CONDUCT_004` | PATCH | `/api/v1/conduct-records/{id}/cancel` | 취소 사유로 상벌점 상태를 `CANCELED`로 변경 |
-| `OUTING_010` | GET | `/api/v1/outings` | 날짜·상태 필터, 페이지네이션, 외출 목록 |
-| `OUTING_009` | GET | `/api/v1/outings/active` | 진행 중 외출 목록, 빈 결과는 `content: []`와 `200 OK` |
-| `OUTING_011` | POST | `/api/v1/outings/{code}/locations` | 외출 코드별 위도·경도 위치 기록 |
-| `OUTING_012` | GET | `/api/v1/outings/{code}/locations` | 외출 코드별 상태와 위치 경로 조회 |
-| `TIMETABLE_001` | GET | `/api/v1/timetables` | 날짜별 시간표 조회, 날짜 형식 `yyyyMMdd` |
-| `MEAL_001` | GET | `/api/v1/meals` | 날짜·식사 유형별 급식 조회 |
+| API 코드        | Method | Endpoint                              | 확인된 핵심 내용                                      |
+| --------------- | ------ | ------------------------------------- | ----------------------------------------------------- |
+| `CONDUCT_008`   | GET    | `/api/v1/conduct-records`             | 학생·상벌점 유형·기간 필터, 페이지네이션, 상벌점 목록 |
+| `CONDUCT_007`   | GET    | `/api/v1/conduct-records/summary`     | 학생별 상벌점 합계와 기준 초과 여부                   |
+| `CONDUCT_006`   | GET    | `/api/v1/conduct-records/me`          | 현재 사용자 상벌점 목록, 필터, 페이지네이션           |
+| `CONDUCT_005`   | GET    | `/api/v1/conduct-records/me/summary`  | 현재 사용자 상벌점 합계와 기준 초과 여부              |
+| `CONDUCT_004`   | PATCH  | `/api/v1/conduct-records/{id}/cancel` | 취소 사유로 상벌점 상태를 `CANCELED`로 변경           |
+| `OUTING_010`    | GET    | `/api/v1/outings`                     | 날짜·상태 필터, 페이지네이션, 외출 목록               |
+| `OUTING_009`    | GET    | `/api/v1/outings/active`              | 진행 중 외출 목록, 빈 결과는 `content: []`와 `200 OK` |
+| `OUTING_011`    | POST   | `/api/v1/outings/{code}/locations`    | 외출 코드별 위도·경도 위치 기록                       |
+| `OUTING_012`    | GET    | `/api/v1/outings/{code}/locations`    | 외출 코드별 상태와 위치 경로 조회                     |
+| `TIMETABLE_001` | GET    | `/api/v1/timetables`                  | 날짜별 시간표 조회, 날짜 형식 `yyyyMMdd`              |
+| `MEAL_001`      | GET    | `/api/v1/meals`                       | 날짜·식사 유형별 급식 조회                            |
 
 ### 공통으로 확인된 응답 규칙
 
@@ -51,21 +51,21 @@ API의 최종 계약은 GONE Server의 실제 코드·Swagger·Notion API 명세
 
 2026-09-01에 API 명세서의 인증 API가 포함된 View에서 아래 내용을 추가 확인했다.
 
-| API 코드 | Method | Endpoint | Request 핵심 | Response 핵심 |
-| --- | --- | --- | --- | --- |
-| `AUTH_001` | POST | `/api/v1/auth/phone/send-code` | `phoneNumber` (하이픈 없음) | 인증번호 만료 시간 |
-| `AUTH_002` | POST | `/api/v1/auth/phone/verify-code` | `phoneNumber`, 6자리 `code` | 10분 유효 `ticket`, `expiresIn` |
-| `AUTH_003` | POST | `/api/v1/auth/signup` | `loginId`, `password`, `phoneNumber`, `ticket` | `accessToken`, `refreshToken`, `accessTokenExpiresIn` |
-| `AUTH_004` | POST | `/api/v1/auth/login` | `identifier` (ID 또는 전화번호), `password` | `accessToken`, `refreshToken`, `accessTokenExpiresIn` |
-| `AUTH_005` | POST | `/api/v1/auth/logout` | Bearer 토큰, 바디 없음 | 성공 메시지 |
-| `AUTH_006` | PATCH | `/api/auth/password` | 현재 비밀번호·새 비밀번호 | 성공 메시지 |
-| `AUTH_007` | DELETE | `/api/auth/me` | 바디 없음 | 탈퇴 성공 메시지 |
-| `AUTH_008` | GET | `/api/v1/auth/login-id/check` | `loginId` | `available` |
-| `AUTH_009` | GET | `/api/v1/auth/name/check` | `name` | `available` |
-| `AUTH_010` | POST | `/api/v1/auth/reissue` | `refreshToken` | 새 Access/Refresh Token |
-| `AUTH_011` | GET | `/api/v1/users/me` | Bearer 토큰 | 내 정보·프로필 정보 |
-| `AUTH_012` | PATCH | `/api/v1/users/me/name` | `name` (최대 20자) | 성공 메시지 |
-| `AUTH_013` | GET | `/api/v1/users/search` | `query` | 사용자 검색 목록 |
+| API 코드   | Method | Endpoint                         | Request 핵심                                   | Response 핵심                                         |
+| ---------- | ------ | -------------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
+| `AUTH_001` | POST   | `/api/v1/auth/phone/send-code`   | `phoneNumber` (하이픈 없음)                    | 인증번호 만료 시간                                    |
+| `AUTH_002` | POST   | `/api/v1/auth/phone/verify-code` | `phoneNumber`, 6자리 `code`                    | 10분 유효 `ticket`, `expiresIn`                       |
+| `AUTH_003` | POST   | `/api/v1/auth/signup`            | `loginId`, `password`, `phoneNumber`, `ticket` | `accessToken`, `refreshToken`, `accessTokenExpiresIn` |
+| `AUTH_004` | POST   | `/api/v1/auth/login`             | `identifier` (ID 또는 전화번호), `password`    | `accessToken`, `refreshToken`, `accessTokenExpiresIn` |
+| `AUTH_005` | POST   | `/api/v1/auth/logout`            | Bearer 토큰, 바디 없음                         | 성공 메시지                                           |
+| `AUTH_006` | PATCH  | `/api/auth/password`             | 현재 비밀번호·새 비밀번호                      | 성공 메시지                                           |
+| `AUTH_007` | DELETE | `/api/auth/me`                   | 바디 없음                                      | 탈퇴 성공 메시지                                      |
+| `AUTH_008` | GET    | `/api/v1/auth/login-id/check`    | `loginId`                                      | `available`                                           |
+| `AUTH_009` | GET    | `/api/v1/auth/name/check`        | `name`                                         | `available`                                           |
+| `AUTH_010` | POST   | `/api/v1/auth/reissue`           | `refreshToken`                                 | 새 Access/Refresh Token                               |
+| `AUTH_011` | GET    | `/api/v1/users/me`               | Bearer 토큰                                    | 내 정보·프로필 정보                                   |
+| `AUTH_012` | PATCH  | `/api/v1/users/me/name`          | `name` (최대 20자)                             | 성공 메시지                                           |
+| `AUTH_013` | GET    | `/api/v1/users/search`           | `query`                                        | 사용자 검색 목록                                      |
 
 ### 인증 API의 문서 충돌 정리
 
@@ -91,15 +91,15 @@ API의 최종 계약은 GONE Server의 실제 코드·Swagger·Notion API 명세
 
 ## 현재 View에서 추가 확인된 비인증 API
 
-| API 코드 | Method | Endpoint | 확인된 핵심 내용 |
-| --- | --- | --- | --- |
-| `OUTING_001` | POST | `/api/v1/outings` | 외출 신청, `CUSTOM` 시간대일 때 시작·종료 시각 필수 |
-| `OUTING_002` | PATCH | `/api/v1/outings/{code}/approve` | 외출 승인, 요청 바디 없음 |
-| `OUTING_003` | PATCH | `/api/v1/outings/{code}/reject` | 거절 사유 필수, 최대 200자 |
-| `OUTING_004` | GET | `/api/v1/outings/me/requests` | 기간·상태 필터와 페이지네이션 |
-| `FILE_001` | POST | `/api/v1/files/profile-image/upload-url` | JPEG/PNG, 5MB 이하 presigned upload URL |
-| `FILE_002` | POST | `/api/v1/files/profile-image/confirm` | 업로드 key로 저장 완료 확인 |
-| `ADMIN_001` | POST | `/api/admin/enrollments/bulk` | 학적 데이터 일괄 등록, 실패 row 보고 |
+| API 코드     | Method | Endpoint                                 | 확인된 핵심 내용                                    |
+| ------------ | ------ | ---------------------------------------- | --------------------------------------------------- |
+| `OUTING_001` | POST   | `/api/v1/outings`                        | 외출 신청, `CUSTOM` 시간대일 때 시작·종료 시각 필수 |
+| `OUTING_002` | PATCH  | `/api/v1/outings/{code}/approve`         | 외출 승인, 요청 바디 없음                           |
+| `OUTING_003` | PATCH  | `/api/v1/outings/{code}/reject`          | 거절 사유 필수, 최대 200자                          |
+| `OUTING_004` | GET    | `/api/v1/outings/me/requests`            | 기간·상태 필터와 페이지네이션                       |
+| `FILE_001`   | POST   | `/api/v1/files/profile-image/upload-url` | JPEG/PNG, 5MB 이하 presigned upload URL             |
+| `FILE_002`   | POST   | `/api/v1/files/profile-image/confirm`    | 업로드 key로 저장 완료 확인                         |
+| `ADMIN_001`  | POST   | `/api/admin/enrollments/bulk`            | 학적 데이터 일괄 등록, 실패 row 보고                |
 
 ## 기능별 API 기록 형식
 

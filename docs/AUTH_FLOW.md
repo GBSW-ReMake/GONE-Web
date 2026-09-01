@@ -27,17 +27,17 @@
 
 ### 인증 API 계약
 
-| 기능 | API | Request 핵심 | 성공 결과 |
-| --- | --- | --- | --- |
-| 휴대폰 인증번호 발송 | `POST /api/v1/auth/phone/send-code` | `phoneNumber` (하이픈 없음) | 인증번호 만료 시간 |
-| 휴대폰 인증번호 확인 | `POST /api/v1/auth/phone/verify-code` | `phoneNumber`, 6자리 `code` | 10분 유효 `ticket` |
-| 아이디 중복 확인 | `GET /api/v1/auth/login-id/check` | `loginId` query | `available` |
-| 회원가입 | `POST /api/v1/auth/signup` | `loginId`, `password`, `phoneNumber`, `ticket` | API 명세서에는 Access/Refresh Token 발급으로 기록 |
-| 로그인 | `POST /api/v1/auth/login` | `identifier`, `password` | Access/Refresh Token 발급 |
-| 토큰 재발급 | `POST /api/v1/auth/reissue` | `refreshToken` | 새 Access/Refresh Token 발급 |
-| 로그아웃 | `POST /api/v1/auth/logout` | Bearer 토큰, 바디 없음 | 성공 메시지 |
-| 내 정보 조회 | `GET /api/v1/users/me` | Bearer 토큰 | 사용자·학적·프로필 정보 |
-| 이름 변경 | `PATCH /api/v1/users/me/name` | `name` | 성공 메시지 |
+| 기능                 | API                                   | Request 핵심                                   | 성공 결과                                         |
+| -------------------- | ------------------------------------- | ---------------------------------------------- | ------------------------------------------------- |
+| 휴대폰 인증번호 발송 | `POST /api/v1/auth/phone/send-code`   | `phoneNumber` (하이픈 없음)                    | 인증번호 만료 시간                                |
+| 휴대폰 인증번호 확인 | `POST /api/v1/auth/phone/verify-code` | `phoneNumber`, 6자리 `code`                    | 10분 유효 `ticket`                                |
+| 아이디 중복 확인     | `GET /api/v1/auth/login-id/check`     | `loginId` query                                | `available`                                       |
+| 회원가입             | `POST /api/v1/auth/signup`            | `loginId`, `password`, `phoneNumber`, `ticket` | API 명세서에는 Access/Refresh Token 발급으로 기록 |
+| 로그인               | `POST /api/v1/auth/login`             | `identifier`, `password`                       | Access/Refresh Token 발급                         |
+| 토큰 재발급          | `POST /api/v1/auth/reissue`           | `refreshToken`                                 | 새 Access/Refresh Token 발급                      |
+| 로그아웃             | `POST /api/v1/auth/logout`            | Bearer 토큰, 바디 없음                         | 성공 메시지                                       |
+| 내 정보 조회         | `GET /api/v1/users/me`                | Bearer 토큰                                    | 사용자·학적·프로필 정보                           |
+| 이름 변경            | `PATCH /api/v1/users/me/name`         | `name`                                         | 성공 메시지                                       |
 
 ## 회원가입
 

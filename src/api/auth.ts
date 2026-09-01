@@ -16,9 +16,9 @@ import type {
   SignUpResponse,
 } from '../types/auth'
 
-export async function sendPhoneCode(
+export const sendPhoneCode = async (
   request: PhoneSendCodeRequest,
-): Promise<ApiResponse<PhoneSendCodeResponse>> {
+): Promise<ApiResponse<PhoneSendCodeResponse>> => {
   const response = await apiClient.post<ApiResponse<PhoneSendCodeResponse>>(
     '/api/v1/auth/phone/send-code',
     request,
@@ -27,9 +27,9 @@ export async function sendPhoneCode(
   return response.data
 }
 
-export async function verifyPhoneCode(
+export const verifyPhoneCode = async (
   request: PhoneVerifyCodeRequest,
-): Promise<ApiResponse<PhoneVerifyCodeResponse>> {
+): Promise<ApiResponse<PhoneVerifyCodeResponse>> => {
   const response = await apiClient.post<ApiResponse<PhoneVerifyCodeResponse>>(
     '/api/v1/auth/phone/verify-code',
     request,
@@ -38,9 +38,9 @@ export async function verifyPhoneCode(
   return response.data
 }
 
-export async function checkLoginId(
+export const checkLoginId = async (
   loginId: string,
-): Promise<ApiResponse<LoginIdCheckResponse>> {
+): Promise<ApiResponse<LoginIdCheckResponse>> => {
   const response = await apiClient.get<ApiResponse<LoginIdCheckResponse>>(
     '/api/v1/auth/login-id/check',
     { params: { loginId } },
@@ -49,9 +49,9 @@ export async function checkLoginId(
   return response.data
 }
 
-export async function checkName(
+export const checkName = async (
   name: string,
-): Promise<ApiResponse<NameCheckResponse>> {
+): Promise<ApiResponse<NameCheckResponse>> => {
   const response = await apiClient.get<ApiResponse<NameCheckResponse>>(
     '/api/v1/auth/name/check',
     { params: { name } },
@@ -60,9 +60,9 @@ export async function checkName(
   return response.data
 }
 
-export async function signUp(
+export const signUp = async (
   request: SignUpRequest,
-): Promise<ApiResponse<SignUpResponse>> {
+): Promise<ApiResponse<SignUpResponse>> => {
   const response = await apiClient.post<ApiResponse<SignUpResponse>>(
     '/api/v1/auth/signup',
     request,
@@ -71,9 +71,9 @@ export async function signUp(
   return response.data
 }
 
-export async function login(
+export const login = async (
   request: LoginRequest,
-): Promise<ApiResponse<LoginResponse>> {
+): Promise<ApiResponse<LoginResponse>> => {
   const response = await apiClient.post<ApiResponse<LoginResponse>>(
     '/api/v1/auth/login',
     request,
@@ -82,9 +82,9 @@ export async function login(
   return response.data
 }
 
-export async function reissueToken(
+export const reissueToken = async (
   request: ReissueRequest,
-): Promise<ApiResponse<ReissueResponse>> {
+): Promise<ApiResponse<ReissueResponse>> => {
   const response = await apiClient.post<ApiResponse<ReissueResponse>>(
     '/api/v1/auth/reissue',
     request,
@@ -93,15 +93,14 @@ export async function reissueToken(
   return response.data
 }
 
-export async function getMe(): Promise<ApiResponse<MeResponse>> {
-  const response = await apiClient.get<ApiResponse<MeResponse>>(
-    '/api/v1/users/me',
-  )
+export const getMe = async (): Promise<ApiResponse<MeResponse>> => {
+  const response =
+    await apiClient.get<ApiResponse<MeResponse>>('/api/v1/users/me')
 
   return response.data
 }
 
-export async function logout(): Promise<ApiResponse<null>> {
+export const logout = async (): Promise<ApiResponse<null>> => {
   const response = await apiClient.post<ApiResponse<null>>(
     '/api/v1/auth/logout',
   )

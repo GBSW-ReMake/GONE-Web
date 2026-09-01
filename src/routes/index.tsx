@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-function HomePage() {
+const HomePage = () => {
   return <h1>GONE Web</h1>
 }
 
-export function AppRoutes() {
+export const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>

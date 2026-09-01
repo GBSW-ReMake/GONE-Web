@@ -134,16 +134,16 @@ Figma Web frame/node는 Web 화면의 시각·UX 기준으로 사용한다. GONE
 
 현재 웹 로컬 문서에서 확인된 인증 계약:
 
-| 기능 | Method | Endpoint | 인증 |
-| --- | --- | --- | --- |
-| 로그인 | POST | `/api/v1/auth/login` | 불필요 |
-| 전화번호 인증번호 발송 | POST | `/api/v1/auth/phone/send-code` | 불필요 |
-| 전화번호 인증번호 확인 | POST | `/api/v1/auth/phone/verify-code` | 불필요 |
-| 토큰 재발급 | POST | `/api/v1/auth/reissue` | `refreshToken` Request, 새 토큰 응답 |
-| 아이디 중복 확인 | GET | `/api/v1/auth/login-id/check` | `loginId` query, `available` 응답 |
-| 이름 중복 확인 | GET | `/api/v1/auth/name/check` | `name` query, `available` 응답 |
-| 회원가입 | POST | `/api/v1/auth/signup` | `loginId`, `password`, `phoneNumber`, `ticket`; 성공 시 토큰 발급으로 명세됨 |
-| 로그아웃 | POST | `/api/v1/auth/logout` | Bearer 토큰, 바디 없음 |
+| 기능                   | Method | Endpoint                         | 인증                                                                         |
+| ---------------------- | ------ | -------------------------------- | ---------------------------------------------------------------------------- |
+| 로그인                 | POST   | `/api/v1/auth/login`             | 불필요                                                                       |
+| 전화번호 인증번호 발송 | POST   | `/api/v1/auth/phone/send-code`   | 불필요                                                                       |
+| 전화번호 인증번호 확인 | POST   | `/api/v1/auth/phone/verify-code` | 불필요                                                                       |
+| 토큰 재발급            | POST   | `/api/v1/auth/reissue`           | `refreshToken` Request, 새 토큰 응답                                         |
+| 아이디 중복 확인       | GET    | `/api/v1/auth/login-id/check`    | `loginId` query, `available` 응답                                            |
+| 이름 중복 확인         | GET    | `/api/v1/auth/name/check`        | `name` query, `available` 응답                                               |
+| 회원가입               | POST   | `/api/v1/auth/signup`            | `loginId`, `password`, `phoneNumber`, `ticket`; 성공 시 토큰 발급으로 명세됨 |
+| 로그아웃               | POST   | `/api/v1/auth/logout`            | Bearer 토큰, 바디 없음                                                       |
 
 Notion API 명세서 전체 확인 결과와 도메인별 API 목록은 [`docs/API_REFERENCE.md`](../../API_REFERENCE.md)의 `Notion API 명세서 확인 목록`과 `인증 API 상세 확인`에 기록했다. 인증 계획서에서는 로그인·회원가입에 직접 필요한 Auth API만 구현 대상으로 삼고, Conduct·Outing·Timetable·Meal API는 인증 이후 도메인의 계약 참고 자료로 관리한다.
 
@@ -224,14 +224,14 @@ Notion API 명세서 전체 확인 결과와 도메인별 API 목록은 [`docs/A
 
 ## 9. 예상 소요 시간
 
-| 작업 | 예상 시간 |
-| --- | ---: |
-| 공식 자료·API 계약 정리 | 1~2시간 |
-| 인증 공통 구조 | 2~3시간 |
-| 로그인 UI·API | 2~3시간 |
-| Figma Web 회원가입 UI·API | 4~6시간 |
-| QA·문서화 | 2~3시간 |
-| **합계** | **11~17시간** |
+| 작업                      |     예상 시간 |
+| ------------------------- | ------------: |
+| 공식 자료·API 계약 정리   |       1~2시간 |
+| 인증 공통 구조            |       2~3시간 |
+| 로그인 UI·API             |       2~3시간 |
+| Figma Web 회원가입 UI·API |       4~6시간 |
+| QA·문서화                 |       2~3시간 |
+| **합계**                  | **11~17시간** |
 
 > **담당자 검토**  
 > 승인 여부: 검토 대기  
