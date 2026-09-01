@@ -2,6 +2,8 @@
 
 GONE Web의 기능 계획, 구현 중 발견한 이슈, 최종 개발 결과를 기록한다.
 
+GONE-Web 화면 구현은 Figma의 **Web frame/node**를 기준으로 한다. iOS·Android 화면은 인증 흐름과 공통 상태를 참고하는 용도이며 Web 레이아웃 기준으로 사용하지 않는다. 기능 계획서와 Issue에는 구현 대상 Figma URL과 `node-id`를 기록한다.
+
 ## 문서 구조
 
 ```text

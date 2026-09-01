@@ -2,7 +2,10 @@
 
 ## 기준
 
-- Figma를 시각적 기준으로 사용한다.
+- **Figma Web frame/node를 시각적 기준으로 사용한다.**
+- Web desktop frame에서 색상·간격·레이아웃·상태를 확인한다.
+- iOS·Android 앱 frame은 공통 흐름과 상태 참고용이며 Web 시각 기준이 아니다.
+- 로그인 Web의 우측 비주얼은 제공된 경북소프트웨어마이스터고등학교 건물 사진을 사용하며, 이미지 crop·radius·overlay는 Figma Web frame을 따른다.
 - iOS·Android와 공통되는 브랜드 색상과 상태 의미를 유지한다.
 - 색상만으로 상태를 전달하지 않고 텍스트·아이콘·모양을 함께 사용한다.
 - 버튼과 입력 요소는 키보드 포커스와 명확한 포커스 링을 제공한다.
@@ -50,3 +53,10 @@ Primitive: 색상 원본, 간격, 폰트 크기
 - [ ] 키보드로 이동·사용 가능
 - [ ] 좁은 화면에서 잘리지 않음
 - [ ] 상태를 색상 외 텍스트나 아이콘으로도 전달
+
+## Web 검토 체크리스트
+
+- [ ] 구현 대상이 모바일 앱 frame이 아닌 Web frame/node인지 확인
+- [ ] 계획서에 Figma URL, `node-id`, frame 이름, 기준 viewport 기록
+- [ ] desktop 레이아웃과 responsive 동작을 구분
+- [ ] Web frame에 없는 동작은 모바일 화면으로 추측하지 않고 검토 항목으로 기록
