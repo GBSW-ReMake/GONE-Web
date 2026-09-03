@@ -164,9 +164,9 @@ Notion API 명세서 전체 확인 결과와 도메인별 API 목록은 [`docs/A
 
 - [x] 인증 관련 타입과 API 계약 확정
 - [x] 공개 인증 라우트 구성
-- [ ] Figma 기반 공통 Input·Button 구현
-- [ ] 로그인 화면 UI 구현
-- [ ] 로그인 API 연동
+- [x] Figma 기반 공통 Input·Button 구현
+- [x] 로그인 화면 UI 구현
+- [x] 로그인 API 연동
 - [ ] Figma Web 기준 회원가입 UI 구현
 - [ ] 아이디 중복 확인 연동
 - [ ] API 명세서 기준 이름 중복 확인 API의 사용 시점 검토
