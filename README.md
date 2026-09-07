@@ -4,21 +4,23 @@
 
 ## 기술 스택
 
+- Next.js App Router
 - React
 - TypeScript
-- Vite
 - pnpm
 - Axios
 - Zustand
-- React Router
+- Tailwind CSS
 - Prettier / ESLint
+
+> 현재 인증 화면은 Next.js App Router 기준으로 동작한다. 기존 Vite 실행·QA 기록은 전환 비교 이력으로만 남긴다.
 
 ## 시작하기
 
 ### 요구 사항
 
 - Node.js 22 이상
-- pnpm 10 이상
+- pnpm 11.19.0 기준
 
 ### 설치
 
@@ -65,6 +67,8 @@ cp .env.example .env.local
 ```
 
 실제 환경변수 파일은 보안상 Git에 올리지 않습니다.
+
+Next.js 브라우저 코드에서 사용하는 환경변수는 `NEXT_PUBLIC_` 접두사를 사용합니다.
 
 ## 브랜치
 
