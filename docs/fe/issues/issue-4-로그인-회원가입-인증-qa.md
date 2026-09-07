@@ -463,3 +463,18 @@ Mock 로그인 응답을 받은 뒤 Access Token과 Refresh Token을 저장하�
 
 - 두 보고서에만 Prettier를 적용하고 같은 형식 검사를 다시 실행한다.
 - 두 보고서를 자동 정렬한 뒤 `pnpm format:check`가 통과했다.
+
+## 최종 자동검증 중 Prettier 캐시 경로 오류 — 2026-09-08
+
+- 발견 환경: GONE-Web 최종 커밋 직전, macOS 로컬 환경, Next.js `.next` 생성 캐시 존재
+- 재현 방법: `pnpm format:check`
+- 예상 결과: 저장소 파일 포맷 검사 통과
+- 실제 결과: Prettier가 `.next/static/chunks 2` 경로를 스캔하는 중 `Unknown system error -70`을 출력하고 종료 코드 2로 종료
+- 원인: 제품 소스가 아닌 Next.js 생성 캐시 경로를 Prettier가 검사하는 환경 오류로 추정
+- 영향 범위: 포맷 검사만 차단하며 애플리케이션 빌드·런타임 동작과 무관
+- 수정: `.prettierignore`에 Next.js 생성 캐시와 의존성·빌드 출력 디렉터리를 등록했다.
+- 재검증: 동일 명령 재실행 후 통과 여부를 아래에 기록한다.
+
+### 재검증 결과
+
+- `pnpm format:check`: 통과
