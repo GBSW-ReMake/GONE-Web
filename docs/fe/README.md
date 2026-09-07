@@ -2,6 +2,8 @@
 
 GONE Web의 기능 계획, 구현 중 발견한 이슈, 최종 개발 결과를 기록한다.
 
+현재 인증 구현은 Next.js App Router 기반이다. 기존 Vite QA 결과는 전환 전 이력으로, 이후 QA는 Next.js 실행 기준으로 구분해 기록한다.
+
 GONE-Web 화면 구현은 Figma의 **Web frame/node**를 기준으로 한다. iOS·Android 화면은 인증 흐름과 공통 상태를 참고하는 용도이며 Web 레이아웃 기준으로 사용하지 않는다. 기능 계획서와 Issue에는 구현 대상 Figma URL과 `node-id`를 기록한다.
 
 ## 문서 구조
@@ -43,3 +45,11 @@ docs/fe/
 - 확정되지 않은 API·정책은 추측하지 않고 `결정 필요`로 표시한다.
 - 화면 상태는 정상·로딩·빈 상태·오류·권한 거부를 모두 기록한다.
 - 문서에는 관련 Issue, PR, Figma, Notion 링크를 남긴다.
+
+## Next.js 기록 기준
+
+- URL 화면은 `src/app/**/page.tsx`, 공유 레이아웃은 `src/app/**/layout.tsx` 기준으로 기록한다.
+- 화면 내부 구현은 `src/features/**`에 두고, `src/app`의 `page.tsx`는 라우트 진입점 역할만 담당한다.
+- 브라우저 전용 상태·이벤트·Zustand·localStorage를 사용하는 파일은 Client Component 여부를 기록한다.
+- 환경변수와 실행 명령은 Next.js 기준인 `NEXT_PUBLIC_*`, `pnpm dev`, `pnpm build`를 사용한다.
+- API 계약·Mock Fixture·오류 문구 규칙은 Next.js 전환 전후에 동일하게 유지한다.

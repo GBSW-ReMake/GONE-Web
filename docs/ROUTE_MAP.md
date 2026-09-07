@@ -15,16 +15,38 @@
 | `/notifications` | 알림       | 필요   | 전체 로그인 사용자 |
 | `/mypage`        | 마이페이지 | 필요   | 전체 로그인 사용자 |
 | `/admin`         | 관리자     | 필요   | `ADMIN`            |
+| `/student`       | 학생 홈    | 필요   | `STUDENT`          |
+| `/teacher`       | 교사 홈    | 필요   | `TEACHER`          |
+| `/discipline`    | 선도부 홈  | 필요   | `DISCIPLINE`       |
 
 실제 세부 경로와 역할은 기능 구현 전에 Notion·백엔드 명세로 확정한다.
 
 ## 라우트 구성 규칙
 
+Next.js App Router에서는 `src/app` 아래의 폴더와 `page.tsx`가 URL을 만든다.
+
+```text
+src/app/
+├── (auth)/
+│   ├── layout.tsx
+│   ├── login/page.tsx
+│   └── signup/page.tsx
+├── (dashboard)/
+│   ├── layout.tsx
+│   └── page.tsx
+└── not-found.tsx
+```
+
+현재 역할별 보호 진입점은 `src/app/(dashboard)/student`, `teacher`, `discipline`, `admin`에 둔다. `/`는 `users/me.role`을 확인한 뒤 역할별 첫 화면으로 이동한다.
+
 - 공개 라우트: 로그인하지 않아도 접근할 수 있다.
 - 보호 라우트: 인증이 없으면 `/login`으로 이동한다.
 - 역할 라우트: 인증과 역할을 모두 확인한다.
+- 역할이 다른 보호 라우트에 직접 접근하면 현재 사용자 역할의 첫 화면으로 이동한다.
 - 존재하지 않는 경로: 공통 404 화면을 보여준다.
 - 마지막 방문 경로가 필요하면 안전한 내부 경로인지 검증한 뒤 복귀시킨다.
+- `middleware.ts`는 로그인 여부와 역할에 따른 1차 접근 제어에 사용하고, 실제 권한 검사는 백엔드 응답으로 다시 확인한다.
+- 클라이언트에서 이동할 때는 Next.js `Link` 또는 `useRouter`를 사용한다.
 
 ## 화면 추가 시 기록할 항목
 

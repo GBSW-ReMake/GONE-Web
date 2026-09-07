@@ -51,6 +51,8 @@ API의 최종 계약은 GONE Server의 실제 코드·Swagger·Notion API 명세
 
 2026-09-01에 API 명세서의 인증 API가 포함된 View에서 아래 내용을 추가 확인했다.
 
+2026-09-03에는 Notion API 명세서 원문과 GONE Server `dev`의 `AuthController`, `PhoneAuthController`, Request·Response DTO를 다시 대조했다. 이번 회원가입 구현에 사용하는 Endpoint와 필드는 아래 표와 일치한다.
+
 | API 코드   | Method | Endpoint                         | Request 핵심                                   | Response 핵심                                         |
 | ---------- | ------ | -------------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
 | `AUTH_001` | POST   | `/api/v1/auth/phone/send-code`   | `phoneNumber` (하이픈 없음)                    | 인증번호 만료 시간                                    |
@@ -72,8 +74,23 @@ API의 최종 계약은 GONE Server의 실제 코드·Swagger·Notion API 명세
 - API 명세서의 `AUTH_003`은 회원가입 Request에서 `name`을 받지 않으며, 학적 데이터 기반으로 서버가 이름/닉네임을 생성한다고 적혀 있다.
 - API 명세서의 `AUTH_003`은 가입 성공 시 토큰을 즉시 발급한다고 적혀 있다.
 - 기존 Notion 기능정의서에는 이름 입력과 가입 후 `/login` 이동으로 기록되어 있어 서로 충돌한다.
-- 구현 전 GONE Server `dev`의 실제 Controller·DTO·Swagger를 최종 계약으로 확정하고, 그 결과에 따라 계획서·타입·Mock Fixture를 함께 갱신한다.
+- GONE Server `dev`의 실제 Controller·DTO를 확인했으며, 회원가입 Request에는 `name`이 없고 성공 응답은 `TokenResponse`다.
+- 이름 중복 확인 `GET /api/v1/auth/name/check`는 회원가입이 아니라 가입 후 별명 변경 `PATCH /api/v1/users/me/name` 전에 사용한다.
 - `AUTH_006`, `AUTH_007`의 문서 경로가 다른 Auth API와 `/api/v1` prefix가 다르므로 Server `dev` 확인 전에는 구현하지 않는다.
+
+### API 행 코드와 런타임 Error Code 구분
+
+- API 명세서 표의 `AUTH_001`~`AUTH_013`은 API 항목을 찾기 위한 **행 식별자**다.
+- 실제 실패 응답의 `code`는 각 행의 `예외/오류 처리`에 적힌 `AUTH_001`, `USER_002`, `GBSW_001` 같은 **런타임 Error Code**를 사용한다.
+- 따라서 API 행 식별자 `AUTH_008`은 아이디 중복 확인 API를 가리키지만, Server `AuthErrorCode.AUTH_008`은 `INVALID_REFRESH_TOKEN`이다. 화면 오류 처리는 API 행 번호가 아니라 실제 실패 응답의 `code`를 기준으로 한다.
+
+### Server `dev` 회원가입 재확인 결과
+
+- `POST /api/v1/auth/signup`: `loginId`, `password`, `phoneNumber`, `ticket`을 받고 `TokenResponse`를 반환한다.
+- `POST /api/v1/auth/phone/send-code`: `expiresIn`을 반환한다. Notion 설명에는 학적 사전 확인이 있지만 현재 Server `dev`에는 발송 전 학적 확인이 아직 구현되지 않았다고 명시돼 있다.
+- `POST /api/v1/auth/phone/verify-code`: 6자리 인증번호 검증 후 `ticket`, `expiresIn`을 반환한다.
+- `GET /api/v1/auth/login-id/check`: 영문·숫자 4~20자 `loginId`의 `available`을 반환한다.
+- `GET /api/v1/auth/name/check`: 최대 20자 별명의 `available`을 반환하며 회원가입에서는 호출하지 않는다.
 
 ### 확인 범위와 주의점
 

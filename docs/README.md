@@ -54,6 +54,14 @@ Notion 내부 문서가 충돌하면 **API 명세서를 최우선 기준**으로
 
 Figma Web frame/node는 화면의 시각·UX 기준이며 API·정책의 우선순위를 바꾸지 않는다. GONE Server·iOS·Android는 구현 검증과 공통 흐름 참고 자료로 사용한다.
 
+### 현재 Next.js 기준
+
+- GONE-Web의 현재 프론트엔드 기준은 Next.js App Router다.
+- 기존 Vite 기반 인증 구현과 QA 결과는 전환 전 비교 이력으로 보존한다.
+- 화면은 `src/app/**/page.tsx`, 공유 레이아웃은 `src/app/**/layout.tsx`에 둔다.
+- API 계약·타입·Mock Fixture·Tailwind `className` 스타일·한국어 오류 처리 규칙은 전환 전후에 유지한다.
+- 문서에서 과거 Vite 기준과 현재 Next.js 기준을 혼동하지 않도록 각 기록의 실행 환경을 명시한다.
+
 ### Figma Web 기준
 
 - Web 구현 대상은 Figma에서 Web 화면으로 식별되는 frame/node로 확정한다.
@@ -101,3 +109,10 @@ fe/reports/feat-12-실습실-신청-final-report.md
 - 라우트·역할 변경: `ROUTE_MAP.md`, `ROLE_PERMISSION.md` 갱신
 - 디자인 변경: `DESIGN_SYSTEM.md`와 관련 계획서 갱신
 - 작업 완료: `fe/reports/`에 최종 결과 기록
+
+## 규칙 문서 변경 제한
+
+- `WORKFLOW.md`, `BRANCH_STRATEGY.md`, `COMMIT_CONVENTION.md`, `QA_CONVENTION.md`처럼 프로젝트 전체에 적용되는 규칙 문서는 개별 기능의 구현 결과나 QA 결과에 맞추기 위해 임의로 수정하지 않는다.
+- 기능 진행 중 생긴 결정·오류·결과는 해당 기능의 `fe/plans`, `fe/issues`, `fe/reports` 문서와 루트 컨텍스트 문서에 기록한다.
+- 프로젝트 규칙 자체를 바꿔야 할 때만 담당자에게 변경 이유와 영향을 설명하고 승인을 받은 뒤 규칙 문서를 수정한다.
+- 이번 항목은 담당자가 명시적으로 요청한 문서 보호 정책을 기록하기 위한 1회 변경이며, 이후 Issue #4 마무리 결과는 기능별 문서에만 반영한다.

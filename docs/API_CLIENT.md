@@ -1,9 +1,11 @@
 # API 클라이언트 규칙
 
+> 현재 브라우저 코드는 Next.js 환경이므로 `NEXT_PUBLIC_API_BASE_URL`을 사용한다. `VITE_API_BASE_URL`은 전환 전 기록에서만 언급한다.
+
 ## 기본 원칙
 
 - Axios 인스턴스는 `src/api/client.ts` 한 곳에서 관리한다.
-- API 주소는 `VITE_API_BASE_URL`로 주입한다.
+- Next.js 브라우저 코드에서 사용할 API 주소는 `NEXT_PUBLIC_API_BASE_URL`로 주입한다.
 - API 함수는 도메인별 파일로 분리한다. 예: `src/api/auth.ts`, `src/api/outing.ts`.
 - 컴포넌트는 URL, 헤더, 토큰 저장 방식을 알지 않고 API 함수만 호출한다.
 - Request·Response 타입은 `src/types`에 두고 백엔드 명세와 맞춘다.
@@ -37,6 +39,14 @@ Content-Type: application/json
 - 재발급 요청 자체가 401이면 다시 재발급하지 않는다.
 - 여러 요청이 동시에 만료되면 재발급 요청을 하나로 합치는 방식을 검토한다.
 
+현재 구현은 위 흐름을 `src/api/client.ts`의 응답 인터셉터에서 처리한다.
+
+- 동시에 발생한 401은 하나의 재발급 Promise를 공유한다.
+- 재발급 요청과 공개 인증 요청은 다시 재발급하지 않는다.
+- 재발급 성공 시 새 Access/Refresh Token과 만료 시각을 Store·localStorage에 갱신한다.
+- 원래 요청은 새 Access Token으로 한 번만 재시도한다.
+- 재발급 실패 시 `clearAuth()`를 실행하고 `/login`으로 이동한다.
+
 ## 에러 처리
 
 | 상태 | 의미           | 화면 처리                  |
@@ -61,3 +71,10 @@ export const getMyProfile = async (): Promise<User> => {
 ```
 
 컴포넌트에서 API 응답 전체를 전역 상태에 저장하지 말고 필요한 화면 모델만 사용한다.
+
+## Next.js Client·Server 경계
+
+- 브라우저에서 실행되는 API 함수가 환경변수를 읽어야 하면 `NEXT_PUBLIC_*` 접두사를 사용한다.
+- 서버 전용 비밀값은 `NEXT_PUBLIC_*`로 만들지 않고 Server Component·Route Handler에서만 사용한다.
+- localStorage와 Zustand 인증 Store를 사용하는 화면·Hook에는 `'use client'`를 선언한다.
+- 화면은 API Endpoint를 직접 호출하지 않고 `src/api`의 도메인 함수를 호출한다.
