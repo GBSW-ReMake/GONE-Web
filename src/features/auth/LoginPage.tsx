@@ -1,15 +1,19 @@
+'use client'
+
 import { isAxiosError } from 'axios'
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
-import { login } from '../api/auth'
-import goneLogo from '../assets/gone-logo.svg'
-import schoolBuilding from '../assets/school-building.png'
-import { Button } from '../components/Button'
-import { Input } from '../components/Input'
-import { useAuthStore } from '../stores/authStore'
-import type { ApiResponse, LoginRequest } from '../types/auth'
+import { login } from '../../api/auth'
+import { Button } from '../../components/Button'
+import { Input } from '../../components/Input'
+import { useAuthStore } from '../../stores/authStore'
+import type { ApiResponse, LoginRequest } from '../../types/auth'
+
+// public 폴더의 정적 로고를 URL로 사용한다. Next.js에서는 이런 자산을 브라우저 경로로 제공한다.
+const goneLogo = '/gone-logo.svg'
 
 // Record<string, string>은 "문자열 코드"를 key로, "문자열 안내 문구"를 value로 갖는 객체 타입이다.
 const loginErrorMessages: Record<string, string> = {
@@ -44,7 +48,7 @@ const getLoginErrorMessage = (error: unknown): string => {
 }
 
 const LoginPage = () => {
-  const navigate = useNavigate()
+  const router = useRouter()
   // 로그인 성공 후 토큰을 저장할 Store action만 구독한다.
   const setAuthTokens = useAuthStore((state) => state.setAuthTokens)
   const [form, setForm] = useState<LoginRequest>({
@@ -86,7 +90,7 @@ const LoginPage = () => {
 
       setAuthTokens(response.data)
       // 역할별 보호 라우트는 후속 작업에서 연결하고 현재는 홈으로 이동한다.
-      navigate('/')
+      router.push('/')
     } catch (requestError) {
       setError(getLoginErrorMessage(requestError))
     } finally {
@@ -95,69 +99,74 @@ const LoginPage = () => {
   }
 
   return (
-    <main className="auth-page">
-      <section className="auth-panel" aria-labelledby="login-title">
-        <div className="auth-content">
-          <header className="auth-header">
-            <img alt="GONE" className="auth-logo" src={goneLogo} />
-            <div className="auth-intro">
-              <h1 id="login-title">편리한 학교생활의 시작</h1>
-              <p>
-                선생님으로 로그인하고 필요한 학교 서비스를 간편하게
-                이용해보세요.
-              </p>
-            </div>
-          </header>
-
-          <form className="auth-form" onSubmit={handleSubmit}>
-            <div className="auth-fields">
-              <Input
-                autoComplete="username"
-                id="identifier"
-                label="아이디"
-                name="identifier"
-                onChange={handleChange}
-                placeholder="아이디 또는 전화번호를 입력해주세요"
-                value={form.identifier}
-              />
-              <Input
-                autoComplete="current-password"
-                id="password"
-                label="비밀번호"
-                name="password"
-                onChange={handleChange}
-                placeholder="비밀번호를 입력해주세요"
-                type="password"
-                value={form.password}
-              />
-            </div>
-
-            <div className="auth-actions">
-              {error && (
-                <p className="auth-form__error" role="alert">
-                  {error}
-                </p>
-              )}
-              <Button
-                disabled={!form.identifier || !form.password}
-                loading={isSubmitting}
-                loadingLabel="로그인 중..."
-                type="submit"
-              >
-                로그인
-              </Button>
-              <p className="auth-signup-link">
-                계정이 없으신가요? <Link to="/signup">회원가입</Link>
-              </p>
-            </div>
-          </form>
+    <div className="flex w-full flex-col gap-10">
+      <header className="flex flex-col gap-[34px]">
+        <img alt="GONE" className="block h-[30px] w-[109.3px]" src={goneLogo} />
+        <div className="flex flex-col gap-[14px]">
+          <h1
+            className="m-0 text-[24px] font-bold leading-normal text-[#1f2937]"
+            id="login-title"
+          >
+            편리한 학교생활의 시작
+          </h1>
+          <p className="m-0 text-[14px] font-[510] leading-normal text-[#98a0aa]">
+            선생님으로 로그인하고 필요한 학교 서비스를 간편하게 이용해보세요.
+          </p>
         </div>
-      </section>
+      </header>
 
-      <div className="auth-visual" aria-hidden="true">
-        <img alt="" src={schoolBuilding} />
-      </div>
-    </main>
+      <form className="flex flex-col gap-[60px]" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-[35px]">
+          <Input
+            autoComplete="username"
+            id="identifier"
+            label="아이디"
+            name="identifier"
+            onChange={handleChange}
+            placeholder="아이디 또는 전화번호를 입력해주세요"
+            value={form.identifier}
+          />
+          <Input
+            autoComplete="current-password"
+            id="password"
+            label="비밀번호"
+            name="password"
+            onChange={handleChange}
+            placeholder="비밀번호를 입력해주세요"
+            type="password"
+            value={form.password}
+          />
+        </div>
+
+        <div className="flex flex-col items-center gap-10">
+          {error && (
+            <p
+              className="m-0 -mb-4 -mt-6 self-stretch text-center text-[12px] leading-[18px] text-[#d84c4c]"
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
+          <Button
+            disabled={!form.identifier || !form.password}
+            loading={isSubmitting}
+            loadingLabel="로그인 중..."
+            type="submit"
+          >
+            로그인
+          </Button>
+          <p className="m-0 text-[14px] font-[510] leading-normal text-[#1f2937]">
+            계정이 없으신가요?{' '}
+            <Link
+              className="font-[590] text-[#5b8def] no-underline focus-visible:outline-2 focus-visible:outline-[#5b8def] focus-visible:outline-offset-3"
+              href="/signup"
+            >
+              회원가입
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
   )
 }
 

@@ -1,5 +1,4 @@
 import { apiClient } from './client'
-import { mockLogin } from '../mocks/auth'
 import type {
   ApiResponse,
   LoginIdCheckResponse,
@@ -56,7 +55,7 @@ export const checkLoginId = async (
   return response.data
 }
 
-// API 명세서에 이름 중복 확인 계약이 있어 공통 인증 API로 제공한다.
+// 이름은 가입 Request에 없으므로 이 API는 가입 후 별명 변경 화면에서만 사용한다.
 export const checkName = async (
   name: string,
 ): Promise<ApiResponse<NameCheckResponse>> => {
@@ -80,15 +79,10 @@ export const signUp = async (
   return response.data
 }
 
-// 로그인 API다. 백엔드가 없을 때만 환경변수로 Mock 함수를 사용한다.
+// 로그인 API다. 화면은 이 함수를 통해 실제 GONE Server와 통신한다.
 export const login = async (
   request: LoginRequest,
 ): Promise<ApiResponse<LoginResponse>> => {
-  if (import.meta.env.VITE_API_MODE === 'mock') {
-    // 운영·실서버 모드에서는 이 분기를 타지 않고 실제 API를 호출한다.
-    return mockLogin(request)
-  }
-
   const response = await apiClient.post<ApiResponse<LoginResponse>>(
     '/api/v1/auth/login',
     request,
