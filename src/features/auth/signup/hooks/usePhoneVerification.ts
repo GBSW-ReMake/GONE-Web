@@ -78,7 +78,7 @@ export const usePhoneVerification = (phoneNumber: string) => {
     }
 
     if (!phoneNumberPattern.test(phoneNumber)) {
-      setError('휴대폰 번호를 01012345678 형식으로 입력해주세요.')
+      setError('휴대폰 번호를 하이픈 없이 01012345678 형식으로 입력해주세요.')
       return
     }
 
@@ -147,7 +147,7 @@ export const usePhoneVerification = (phoneNumber: string) => {
 
       setTicket(response.data.ticket)
       setStatus('verified')
-      setMessage('휴대폰 인증이 완료되었습니다.')
+      setMessage('인증이 완료되었습니다.')
     } catch (requestError) {
       setError(
         getSignUpRequestErrorMessage(

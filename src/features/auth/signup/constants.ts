@@ -13,7 +13,7 @@ export const initialSignUpForm: SignUpFormState = {
 export const loginIdPattern = /^[a-zA-Z0-9]{4,20}$/
 export const passwordPattern =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{8,20}$/
-export const phoneNumberPattern = /^010\d{8}$/
+export const phoneNumberPattern = /^01[0-9]\d{7,8}$/
 export const verificationCodePattern = /^\d{6}$/
 
 export const signUpErrorMessages: Record<string, string> = {

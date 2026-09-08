@@ -36,7 +36,7 @@ export const Input = ({
 
   const inputClassName = [
     'h-[43px] w-full rounded-none border-0 border-b-2 border-[#dde1e6] bg-transparent p-[8px_16px_8px_0] text-[16px] font-normal leading-[22px] text-[#1f2937] outline-none transition-colors duration-[160ms] placeholder:text-[#98a0aa] placeholder:opacity-100 focus:border-[#5b8def] disabled:bg-transparent disabled:text-[#667085] aria-[invalid=true]:border-[#ef6b6b] motion-reduce:transition-none',
-    endAdornment ? 'pr-[116px]' : '',
+    endAdornment ? 'pr-[66px]' : '',
     className,
   ]
     .join(' ')

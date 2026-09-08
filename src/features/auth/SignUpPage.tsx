@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { ComponentProps } from 'react'
 
 import { AccountStep } from './signup/components/AccountStep'
+import { PasswordFields } from './signup/components/PasswordFields'
 import { PhoneVerificationStep } from './signup/components/PhoneVerificationStep'
 import { SignUpActions } from './signup/components/SignUpActions'
 import { useSignUpForm } from './signup/hooks/useSignUpForm'
@@ -50,12 +51,15 @@ const SignUpPage = () => {
       <form className="flex flex-col" onSubmit={signUpForm.handleSubmit}>
         <div className="flex flex-col gap-[35px]">
           <AccountStep
-            errors={fieldErrors}
             form={form}
             isLoginIdAvailable={signUpForm.loginIdStatus === 'available'}
             loginIdError={signUpForm.loginIdError}
             loginIdHelperText={signUpForm.loginIdHelperText}
             onLoginIdChange={signUpForm.handleLoginIdChange}
+          />
+          <PasswordFields
+            errors={fieldErrors}
+            form={form}
             onPasswordChange={signUpForm.handlePasswordChange}
             onPasswordConfirmationChange={
               signUpForm.handlePasswordConfirmationChange

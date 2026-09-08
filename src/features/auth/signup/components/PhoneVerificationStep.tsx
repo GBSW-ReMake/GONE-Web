@@ -23,6 +23,18 @@ type PhoneVerificationStepProps = {
   onVerifyCode: () => void
 }
 
+const formatPhoneNumber = (phoneNumber: string): string => {
+  if (phoneNumber.length <= 3) {
+    return phoneNumber
+  }
+
+  if (phoneNumber.length <= 7) {
+    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`
+  }
+
+  return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7)}`
+}
+
 export const PhoneVerificationStep = ({
   form,
   errors,
@@ -46,7 +58,7 @@ export const PhoneVerificationStep = ({
         disabled={isSending || status === 'verified'}
         endAdornment={
           <button
-            className="min-w-[96px] cursor-pointer border-0 bg-transparent px-1.5 py-1 text-[12px] font-bold text-[#5b8def] hover:text-[#477bdc] focus-visible:rounded focus-visible:outline-2 focus-visible:outline-[#5b8def] focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:text-[#98a0aa]"
+            className="h-7 w-[76px] cursor-pointer rounded border border-[#98a0aa] bg-transparent p-0 !text-[12px] font-bold leading-none whitespace-nowrap text-[#98a0aa] hover:border-[#667085] hover:text-[#667085] focus-visible:outline-2 focus-visible:outline-[#5b8def] focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
             disabled={
               isSending || status === 'verified' || cooldownRemaining > 0
             }
@@ -68,11 +80,11 @@ export const PhoneVerificationStep = ({
         id="phoneNumber"
         inputMode="numeric"
         label="휴대폰 번호"
-        maxLength={11}
+        maxLength={13}
         name="phoneNumber"
         onChange={onPhoneNumberChange}
-        placeholder="01012345678"
-        value={form.phoneNumber}
+        placeholder="010-0000-0000"
+        value={formatPhoneNumber(form.phoneNumber)}
       />
       {status !== 'idle' && (
         <Input
@@ -80,7 +92,7 @@ export const PhoneVerificationStep = ({
           disabled={isVerifying || status === 'verified'}
           endAdornment={
             <button
-              className="min-w-[96px] cursor-pointer border-0 bg-transparent px-1.5 py-1 text-[12px] font-bold text-[#5b8def] hover:text-[#477bdc] focus-visible:rounded focus-visible:outline-2 focus-visible:outline-[#5b8def] focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:text-[#98a0aa]"
+              className="h-7 w-[76px] cursor-pointer rounded border border-[#5b8def] bg-transparent p-0 !text-[12px] font-bold leading-none whitespace-nowrap text-[#5b8def] hover:border-[#477bdc] hover:text-[#477bdc] focus-visible:outline-2 focus-visible:outline-[#5b8def] focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isVerifying || status === 'verified'}
               onClick={onVerifyCode}
               type="button"
@@ -99,7 +111,7 @@ export const PhoneVerificationStep = ({
           maxLength={6}
           name="verificationCode"
           onChange={onVerificationCodeChange}
-          placeholder="인증번호 6자리를 입력해주세요"
+          placeholder="인증번호를 입력해주세요"
           value={form.verificationCode}
         />
       )}

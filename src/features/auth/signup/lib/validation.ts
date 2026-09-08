@@ -43,7 +43,8 @@ export const validatePhoneStep = (
   const errors: SignUpFieldErrors = {}
 
   if (!phoneNumberPattern.test(form.phoneNumber)) {
-    errors.phoneNumber = '휴대폰 번호를 01012345678 형식으로 입력해주세요.'
+    errors.phoneNumber =
+      '휴대폰 번호를 하이픈 없이 01012345678 형식으로 입력해주세요.'
   }
 
   if (phoneStatus === 'idle') {
