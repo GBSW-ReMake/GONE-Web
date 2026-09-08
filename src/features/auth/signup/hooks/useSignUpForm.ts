@@ -25,8 +25,8 @@ export const useSignUpForm = () => {
   const [form, setForm] = useState<SignUpFormState>(initialSignUpForm)
   const [fieldErrors, setFieldErrors] = useState<SignUpFieldErrors>({})
   const [formError, setFormError] = useState('')
-  const [step, setStep] = useState<SignUpStep>(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const step: SignUpStep = 2
 
   const loginIdCheck = useLoginIdCheck(form.loginId)
   const phoneVerification = usePhoneVerification(form.phoneNumber)
@@ -101,25 +101,6 @@ export const useSignUpForm = () => {
     clearFormError()
   }
 
-  const handleNextStep = (): void => {
-    const errors = validateAccountStep(form, loginIdCheck.status)
-
-    if (Object.keys(errors).length > 0) {
-      setFieldErrors(errors)
-      return
-    }
-
-    setFieldErrors({})
-    clearFormError()
-    setStep(2)
-  }
-
-  const handlePreviousStep = (): void => {
-    setStep(1)
-    setFieldErrors({})
-    clearFormError()
-  }
-
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>,
   ): Promise<void> => {
@@ -129,16 +110,13 @@ export const useSignUpForm = () => {
       return
     }
 
-    if (step === 1) {
-      handleNextStep()
-      return
-    }
-
-    const errors = validatePhoneStep(
+    const accountErrors = validateAccountStep(form, loginIdCheck.status)
+    const phoneErrors = validatePhoneStep(
       form,
       phoneVerification.status,
       phoneVerification.ticket,
     )
+    const errors = { ...accountErrors, ...phoneErrors }
 
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors)
@@ -195,6 +173,8 @@ export const useSignUpForm = () => {
     phoneNumberPattern.test(form.phoneNumber) &&
     Boolean(phoneVerification.ticket)
 
+  const isReady = isAccountStepReady && isPhoneStepReady
+
   const handleSendCode = (): void => {
     void phoneVerification.sendCode()
   }
@@ -227,7 +207,7 @@ export const useSignUpForm = () => {
     handleVerificationCodeChange,
     handleSendCode,
     handleVerifyCode,
-    handlePreviousStep,
     handleSubmit,
+    isReady,
   }
 }

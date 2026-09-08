@@ -6,7 +6,6 @@ import type { ComponentProps } from 'react'
 import { AccountStep } from './signup/components/AccountStep'
 import { PhoneVerificationStep } from './signup/components/PhoneVerificationStep'
 import { SignUpActions } from './signup/components/SignUpActions'
-import { SignUpProgress } from './signup/components/SignUpProgress'
 import { useSignUpForm } from './signup/hooks/useSignUpForm'
 
 const SignUpPage = () => {
@@ -32,7 +31,7 @@ const SignUpPage = () => {
   } satisfies ComponentProps<typeof PhoneVerificationStep>
 
   return (
-    <div className="flex w-full -translate-y-6 flex-col gap-10">
+    <div className="flex w-full flex-col gap-[44px]">
       <header className="flex flex-col gap-0">
         <div className="flex flex-col gap-[14px]">
           <h1
@@ -48,41 +47,32 @@ const SignUpPage = () => {
         </div>
       </header>
 
-      <form className="flex flex-col gap-7" onSubmit={signUpForm.handleSubmit}>
-        <SignUpProgress step={signUpForm.step} />
-
-        <div className="flex flex-col gap-[26px]">
-          {signUpForm.step === 1 ? (
-            <AccountStep
-              errors={fieldErrors}
-              form={form}
-              isLoginIdAvailable={signUpForm.loginIdStatus === 'available'}
-              loginIdError={signUpForm.loginIdError}
-              loginIdHelperText={signUpForm.loginIdHelperText}
-              onLoginIdChange={signUpForm.handleLoginIdChange}
-              onPasswordChange={signUpForm.handlePasswordChange}
-              onPasswordConfirmationChange={
-                signUpForm.handlePasswordConfirmationChange
-              }
-            />
-          ) : (
-            <PhoneVerificationStep {...phoneVerificationStepProps} />
-          )}
+      <form className="flex flex-col" onSubmit={signUpForm.handleSubmit}>
+        <div className="flex flex-col gap-[35px]">
+          <AccountStep
+            errors={fieldErrors}
+            form={form}
+            isLoginIdAvailable={signUpForm.loginIdStatus === 'available'}
+            loginIdError={signUpForm.loginIdError}
+            loginIdHelperText={signUpForm.loginIdHelperText}
+            onLoginIdChange={signUpForm.handleLoginIdChange}
+            onPasswordChange={signUpForm.handlePasswordChange}
+            onPasswordConfirmationChange={
+              signUpForm.handlePasswordConfirmationChange
+            }
+          />
+          <PhoneVerificationStep {...phoneVerificationStepProps} />
         </div>
 
-        <SignUpActions
-          formError={signUpForm.formError}
-          isReady={
-            signUpForm.step === 1
-              ? signUpForm.isAccountStepReady
-              : signUpForm.isPhoneStepReady
-          }
-          isSubmitting={signUpForm.isSubmitting}
-          onPrevious={signUpForm.handlePreviousStep}
-          step={signUpForm.step}
-        />
+        <div className="mt-[60px]">
+          <SignUpActions
+            formError={signUpForm.formError}
+            isReady={signUpForm.isReady}
+            isSubmitting={signUpForm.isSubmitting}
+          />
+        </div>
 
-        <p className="m-0 text-center text-[14px] font-[510] leading-normal text-[#1f2937]">
+        <p className="m-0 mt-10 text-center text-[14px] font-[510] leading-normal text-[#1f2937]">
           이미 계정이 있으신가요?{' '}
           <Link
             className="font-[590] text-[#5b8def] no-underline focus-visible:outline-2 focus-visible:outline-[#5b8def] focus-visible:outline-offset-3"
